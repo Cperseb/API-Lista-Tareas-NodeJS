@@ -1,0 +1,19 @@
+Guía para configurar el proyecto con Node.js y Express en el servidor
+
+Si deseas trasladar tu aplicación a un servidor utilizando JavaScript y Node.js, sigue estos pasos:
+
+Crear el proyecto: Comienza creando una carpeta para tu proyecto y accede a ella desde la terminal.
+
+Inicializar el proyecto de Node.js: Una vez dentro de la carpeta de tu proyecto, ejecuta el siguiente comando para inicializar el proyecto y 
+crear un archivo package.json que gestionará las dependencias y la configuración de tu proyecto: "npm init -y"
+Instalar las dependencias necesarias: Para gestionar las rutas HTTP y manejar el servidor, vamos a utilizar Express, un framework de Node.js instalalo con el siguiente comando:npm install express
+
+Estructura de archivos del proyecto: Asegúrate de organizar tu proyecto de la siguiente manera para mantener una estructura ordenada y funcional:
+
+/todo-app
+  ├── /public
+  │    ├── index.html      # Página principal HTML
+  │    ├── styles.css      # Estilos CSS
+  │    └── script.js       # Lógica JavaScript
+  └── /server
+       └── app.js          # Archivo principal de Node.js con la configuración del servidor
