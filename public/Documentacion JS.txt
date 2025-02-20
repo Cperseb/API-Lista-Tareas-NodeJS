@@ -1,0 +1,97 @@
+1. Selección de elementos del DOM
+
+[ const taskForm = document.getElementById('taskForm');  // Formulario para agregar tareas ]
+[ const taskInput = document.getElementById('taskInput');  // Input donde se escribe la tarea ]
+[ const taskList = document.getElementById('taskList');  // Contenedor de la lista de tareas ]
+
+2. Cargar las tareas al cargar la página
+
+window.onload = () => {
+  loadTasks();  // Llamamos a la función para cargar las tareas almacenadas
+};
+
+3. Agregar tareas al formulario
+
+taskForm.addEventListener('submit', (e) => {
+  e.preventDefault();  // Prevenimos que la página se recargue cuando se envíe el formulario
+
+  const task = taskInput.value.trim();  // Obtenemos el valor del input y eliminamos espacios innecesarios
+  if (task) {
+    addTask(task);  // Si la tarea no está vacía, agregamos la tarea
+  }
+
+  taskInput.value = '';  // Limpiamos el campo de entrada de texto después de agregar la tarea
+});
+
+4. Función addTask(task)
+
+function addTask(task) {
+  const taskItem = document.createElement('li');  // Creamos un nuevo elemento de lista (li) para la tarea
+  taskItem.textContent = task;  // Le asignamos el texto de la tarea al li
+
+  // Creamos un botón para eliminar la tarea
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Eliminar';  // El texto del botón es "Eliminar"
+  deleteButton.onclick = () => removeTask(taskItem);  // Al hacer clic en el botón, se elimina la tarea
+
+  taskItem.appendChild(deleteButton);  // Añadimos el botón al elemento li
+  taskList.appendChild(taskItem);  // Añadimos el nuevo li a la lista (ul) en el DOM
+
+  // Guardamos la tarea en el localStorage para que persista entre recargas
+  saveTask(task);
+}
+
+
+5. Función removeTask(taskItem)
+
+function removeTask(taskItem) {
+  taskItem.remove();  // Elimina el elemento li de la lista
+
+  const taskText = taskItem.textContent.replace('Eliminar', '').trim();  // Obtenemos el texto de la tarea sin el "Eliminar"
+  removeTaskFromStorage(taskText);  // Llamamos a la función para eliminar la tarea de localStorage
+}
+
+
+6. Función saveTask(task)
+
+function saveTask(task) {
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];  // Obtenemos las tareas del localStorage (o un array vacío si no hay)
+  tasks.push(task);  // Añadimos la nueva tarea al array
+  localStorage.setItem('tasks', JSON.stringify(tasks));  // Guardamos el array actualizado en el localStorage
+}
+
+
+7. Función loadTasks()
+
+function loadTasks() {
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];  // Obtenemos las tareas almacenadas en el localStorage (o un array vacío si no hay)
+  
+  tasks.forEach(task => {  // Iteramos sobre todas las tareas almacenadas
+    const taskItem = document.createElement('li');  // Creamos un nuevo elemento li para cada tarea
+    taskItem.textContent = task;  // Le asignamos el texto de la tarea al li
+
+    const deleteButton = document.createElement('button');  // Creamos el botón de eliminar
+    deleteButton.textContent = 'Eliminar';  // El texto del botón es "Eliminar"
+    deleteButton.onclick = () => removeTask(taskItem);  // Al hacer clic en el botón, se elimina la tarea
+
+    taskItem.appendChild(deleteButton);  // Añadimos el botón al elemento li
+    taskList.appendChild(taskItem);  // Añadimos el nuevo li a la lista (ul) en el DOM
+  });
+}
+
+8. Función removeTaskFromStorage(task)
+
+function removeTaskFromStorage(task) {
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];  // Obtenemos las tareas del localStorage
+  tasks = tasks.filter(t => t !== task);  // Filtramos la tarea que queremos eliminar
+  localStorage.setItem('tasks', JSON.stringify(tasks));  // Guardamos el array actualizado en el localStorage
+}
+
+
+Resumen general:
+
+Este script permite:
+
+Agregar tareas a una lista, mostrando cada tarea en un li y guardándola en el localStorage.
+Eliminar tareas, tanto de la lista visual como del localStorage.
+Persistir las tareas entre recargas de página, utilizando el localStorage del navegador.
