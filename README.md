@@ -3,7 +3,7 @@
 ## 🌟 Descripción
 
 Este es un proyecto simple de una **aplicación de lista de tareas** (To-Do List) que permite agregar, eliminar y almacenar tareas localmente usando **localStorage**. Las tareas persisten entre recargas de la página. La aplicación está construida con **HTML**, **CSS**, **JavaScript**, y puede ser expandida en el futuro con **Node.js** si decides agregar un servidor.
-
+ 
 ---
 
 ## 🚀 Características
